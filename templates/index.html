@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support Ticket Priority Analysis</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<div class="container">
+    <header>
+        <div>
+            <div class="eyebrow">AGENTFORCE PROJECT • LOCAL DEMO</div>
+            <h1>Support Ticket Priority Analysis</h1>
+            <p>Customer Support Ticket Priority Prediction and Automated Assignment System</p>
+        </div>
+        <div class="badge">VS Code Demo</div>
+    </header>
+
+    <section class="card input-card">
+        <h2>Analyze Customer Support Ticket</h2>
+        <p class="muted">Enter an Account Name to retrieve its latest support ticket.</p>
+
+        <div class="form-row">
+            <input id="accountName" list="accounts" placeholder="e.g. Acme Corporation">
+            <datalist id="accounts">
+                {% for account in accounts %}
+                <option value="{{ account }}">
+                {% endfor %}
+            </datalist>
+            <button onclick="analyzeTicket()">Analyze Ticket</button>
+        </div>
+
+        <div class="quick-tests">
+            <span>Quick test:</span>
+            <button class="ghost" onclick="useAccount('Acme Corporation')">High</button>
+            <button class="ghost" onclick="useAccount('Bright Solutions')">Medium</button>
+            <button class="ghost" onclick="useAccount('Nova Retail')">Low</button>
+        </div>
+    </section>
+
+    <section id="loading" class="card hidden">
+        <div class="spinner"></div>
+        <span>Analyzing ticket details and determining priority...</span>
+    </section>
+
+    <section id="error" class="card error hidden"></section>
+
+    <section id="result" class="hidden">
+        <div class="result-header">
+            <div>
+                <div class="eyebrow">ANALYSIS RESULT</div>
+                <h2 id="resultTitle">Ticket Analysis</h2>
+            </div>
+            <div id="priority" class="priority">-</div>
+        </div>
+
+        <div class="grid">
+            <div class="card">
+                <h3>Ticket Details</h3>
+                <div class="details">
+                    <div><span>Ticket ID</span><strong id="ticketId">-</strong></div>
+                    <div><span>Account</span><strong id="account">-</strong></div>
+                    <div><span>Contact</span><strong id="contact">-</strong></div>
+                    <div><span>Issue Type</span><strong id="issueType">-</strong></div>
+                    <div><span>Status</span><strong id="status">-</strong></div>
+                </div>
+                <div class="description">
+                    <span>Description</span>
+                    <p id="description">-</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Automation Output</h3>
+                <div class="details">
+                    <div><span>Priority Level</span><strong id="priorityText">-</strong></div>
+                    <div><span>Assigned To</span><strong id="assignedTo">-</strong></div>
+                    <div><span>Matched Keywords</span><strong id="keywords">None</strong></div>
+                    <div><span>SLA Breach Risk</span><strong id="sla">No</strong></div>
+                </div>
+                <div id="taskBox" class="task hidden">
+                    <div class="task-title">URGENT TASK CREATED</div>
+                    <div><strong>Urgent Ticket Handling</strong></div>
+                    <div>Priority: High &nbsp; | &nbsp; Status: Not Started</div>
+                </div>
+                <div class="message">
+                    <span>Final Action Message</span>
+                    <p id="actionMessage">-</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="card rules">
+        <h3>Configured Priority Rules</h3>
+        <div class="rule-grid">
+            <div><b>HIGH</b><span>urgent • not working • failure</span></div>
+            <div><b>MEDIUM</b><span>issue • slow • delay</span></div>
+            <div><b>LOW</b><span>none of the above</span></div>
+        </div>
+    </section>
+</div>
+<script src="/static/app.js"></script>
+</body>
+</html>
